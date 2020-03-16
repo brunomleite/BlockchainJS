@@ -70,9 +70,8 @@ class Blockchain{
 
 function readFile(name){
 	let fs = require('fs');
-	let text = '';
 
-	return text = fs.readFileSync(name, 'utf8');
+	return fs.readFileSync(name, 'utf8');
 }
 
 let test = new Blockchain();
