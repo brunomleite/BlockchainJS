@@ -18,7 +18,6 @@ class Block {
 			this.nonce++;
 			this.hash = this.calculateHash();
 		}
-		console.log("Block mined: " + this.hash);
 	}
 }
 
@@ -29,7 +28,9 @@ class Blockchain{
 	}
 
 	createGenesisBlock(data){
-		return new Block(0, data, "0");
+		let newBlock = new Block(0, data, "0");
+		newBlock.mineBlock(this.difficulty);
+		this.chain.push(newBlock);
 	}
 
 	getLatestBlock(){
@@ -38,7 +39,7 @@ class Blockchain{
 
 	createBlock(index, data){
 		if(index == 0){
-			this.chain.push(this.createGenesisBlock(data));
+			this.createGenesisBlock(data);
 		}else{
 			this.addBlock(new Block(index, data));
 		}
@@ -80,6 +81,8 @@ let index = 0;
 test.createBlock(index, readFile('input1.txt'));
 index++;
 test.createBlock(index, readFile('input2.txt'));
+index++;
+test.createBlock(index, readFile('input3.txt'));
 index++;
 
 console.log(JSON.stringify(test, null, 4));
